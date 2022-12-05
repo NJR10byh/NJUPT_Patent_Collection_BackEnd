@@ -21,8 +21,9 @@ public interface FormService
     void addForm(Form form)
         throws BusinessException;
     
-    Form updateForm(Form form)
+    void updateForm(Form form)
         throws BusinessException;
     
-    void deleteForm(int id);
+    void deleteForm(int id)
+        throws BusinessException;
 }

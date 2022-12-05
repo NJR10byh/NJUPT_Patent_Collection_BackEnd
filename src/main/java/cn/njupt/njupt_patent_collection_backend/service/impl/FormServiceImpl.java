@@ -62,16 +62,29 @@ public class FormServiceImpl implements FormService
     }
     
     @Override
-    public Form updateForm(Form form)
+    public void updateForm(Form form)
         throws BusinessException
     {
-        formMapper.updateById(form);
-        return this.getFormById(form.getId());
+        try
+        {
+            formMapper.updateById(form);
+        }
+        catch (DuplicateKeyException e)
+        {
+            throw new BusinessException(EmBusinessError.CANNOT_BE_MODIFIED, "修改错误");
+        }
     }
     
     @Override
     public void deleteForm(int id)
+        throws BusinessException
     {
-        formMapper.deleteById(id);
+        Form form = formMapper.selectById(id);
+        if (form == null)
+        {
+            throw new BusinessException(EmBusinessError.RECORD_NOT_EXIST, "成果征集表不存在");
+        }else {
+            formMapper.deleteById(id);
+        }
     }
 }

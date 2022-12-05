@@ -19,7 +19,7 @@ mybatis-plus:
 
 
 server:
-  port: 8089
+  port: 8588
   servlet:
     session:
       timeout: PT30M #过期时间30分钟

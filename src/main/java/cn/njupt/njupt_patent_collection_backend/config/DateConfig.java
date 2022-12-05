@@ -17,14 +17,16 @@ public class DateConfig implements MetaObjectHandler
 {
     
     /**
-     * 使用mp做添加操作时候，这个方法执行
+     * 使用BaseMapper做添加操作时候，这个方法执行
      * @param metaObject
      */
     @Override
     public void insertFill(MetaObject metaObject)
     {
         // 设置属性值
+        this.setFieldValByName("createUser", "njupt", metaObject);
         this.setFieldValByName("createTime", new Date(), metaObject);
+        this.setFieldValByName("updateUser", "njupt", metaObject);
         this.setFieldValByName("updateTime", new Date(), metaObject);
     }
     
@@ -35,6 +37,7 @@ public class DateConfig implements MetaObjectHandler
     @Override
     public void updateFill(MetaObject metaObject)
     {
+        this.setFieldValByName("updateUser", "baoyuhao", metaObject);
         this.setFieldValByName("updateTime", new Date(), metaObject);
     }
 }

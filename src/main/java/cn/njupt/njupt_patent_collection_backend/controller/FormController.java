@@ -52,9 +52,7 @@ public class FormController
     public ReturnType getFormById(@ApiParam("成果征集表id") @RequestParam(value = "id") int id)
         throws BusinessException
     {
-        
-        Form form = formService.getFormById(id);
-        return ReturnType.create(form);
+        return ReturnType.create(formService.getFormById(id));
     }
     
     @PostMapping("/addForm")
@@ -83,7 +81,8 @@ public class FormController
             throw new BusinessException(EmBusinessError.PARAMETER_VALIDATION_ERROR,
                 bindingResult.getFieldError().getDefaultMessage());
         }
-        return ReturnType.create(formService.updateForm(form));
+        formService.updateForm(form);
+        return ReturnType.create("修改成功");
     }
     
     @PostMapping("/deleteForm")

@@ -68,6 +68,7 @@ public class Form
     private String transformWay;
     
     @ApiModelProperty("征集表创建人")
+    @TableField(fill = FieldFill.INSERT)
     private String createUser;
     
     @ApiModelProperty("征集表创建时间")
@@ -76,6 +77,7 @@ public class Form
     private Date createTime;
     
     @ApiModelProperty("征集表更新人")
+    @TableField(fill = FieldFill.INSERT_UPDATE)
     private String updateUser;
     
     @ApiModelProperty("征集表更新时间")
