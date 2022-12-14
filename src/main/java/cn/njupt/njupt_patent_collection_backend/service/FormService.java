@@ -14,6 +14,9 @@ public interface FormService
 {
     
     Page<Form> getFormPage(Integer currPage, Integer size);
+
+    Page<Form> getFormPageByCondition(String achievementName,String achievementContactPerson,String jobNumber,Integer currPage, Integer size);
+
     
     Form getFormById(int id)
         throws BusinessException;
