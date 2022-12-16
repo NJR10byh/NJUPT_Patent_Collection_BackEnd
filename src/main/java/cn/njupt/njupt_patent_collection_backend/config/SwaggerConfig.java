@@ -34,12 +34,12 @@ public class SwaggerConfig
     private ApiInfo apiInfo(){
         return new ApiInfo(
                 "成果征集系统API文档",
-                "",
-                "v0.1",
-                "",
+                "南京邮电大学成果征集系统接口文档",
+                "v0.1.0",
+                "http://cgzh.njupt.edu.cn:8907/",
                 new Contact("","",""),
-                "",
-                "",
+                "MIT License",
+                "https://opensource.org/licenses/MIT",
                 new ArrayList<>()
         );
     }
