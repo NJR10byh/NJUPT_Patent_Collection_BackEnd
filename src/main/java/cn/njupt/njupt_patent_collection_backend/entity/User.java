@@ -27,6 +27,12 @@ public class User {
     @ApiModelProperty("用户真实姓名")
     private String name;
 
+    @ApiModelProperty("用户手机号")
+    private String phone;
+
+    @ApiModelProperty("用户邮箱")
+    private String email;
+
     @ApiModelProperty("用户权限")
     private String role;
 }
