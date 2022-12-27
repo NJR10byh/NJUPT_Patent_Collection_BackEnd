@@ -40,7 +40,7 @@ public class LoginController {
         }
         HttpSession session = request.getSession();
         User user = loginService.loginByAccount(loginVO.getUsername(), loginVO.getPassword());
-        session.setAttribute("USER_INFO", user);
+        session.setAttribute("logined_userInfo", user);
         return ReturnType.create(user);
     }
 }

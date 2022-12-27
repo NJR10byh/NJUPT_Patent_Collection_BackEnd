@@ -39,6 +39,7 @@ public class LoginServiceImpl implements LoginService {
         User user = new User();
         user.setId(userinfo.getId());
         user.setUsername(userinfo.getUsername());
+        user.setJobNumber(userinfo.getJobNumber());
         user.setName(userinfo.getName());
         user.setPhone(userinfo.getPhone());
         user.setEmail(userinfo.getEmail());

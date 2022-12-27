@@ -35,6 +35,14 @@ public class FormController {
     private FormService formService;
 
 
+    /**
+     * 条件查询成果征集表（分页）
+     *
+     * @param searchVO
+     * @param bindingResult
+     * @return
+     * @throws BusinessException
+     */
     @PostMapping("/getFormPageByCondition")
     @ApiOperation("条件查询成果征集表（分页）")
     @ApiResponses({@ApiResponse(code = 200, message = "success", response = Form.class)})

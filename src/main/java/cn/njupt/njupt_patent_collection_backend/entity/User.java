@@ -24,6 +24,9 @@ public class User {
     @ApiModelProperty("用户登录名")
     private String username;
 
+    @ApiModelProperty("用户工号")
+    private String jobNumber;
+
     @ApiModelProperty("用户真实姓名")
     private String name;
 
