@@ -11,5 +11,5 @@ public class NjuptPatentCollectionBackendApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(NjuptPatentCollectionBackendApplication.class, args);
 	}
-
+	
 }
