@@ -5,9 +5,9 @@ spring:
       max-request-size: 200MB #最大请求文件的大小
       max-file-size: 200MB #设置单个文件最大长度
   datasource:
-    url: jdbc:mysql://cgzh.njupt.edu.cn:3306/achievementCollection_dev?useUnicode=true&characterEncoding=utf8&useSSL=true
-    username: admin
-    password: njupt@123
+    url: jdbc:mysql://47.115.206.210:3306/collection_dev?useUnicode=true&characterEncoding=utf8&useSSL=true
+    username: root
+    password: 2283392Byh
     driver-class-name: com.mysql.cj.jdbc.Driver
 
 mybatis-plus:
