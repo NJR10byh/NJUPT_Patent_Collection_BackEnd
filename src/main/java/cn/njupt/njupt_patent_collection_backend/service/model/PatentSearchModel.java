@@ -10,9 +10,15 @@ package cn.njupt.njupt_patent_collection_backend.service.model;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
-
 @Data
-public class PatentSearchModel {
+public class PatentSearchModel
+{
     @ApiModelProperty("是否授权")
-    private Boolean authorized;
+    private Boolean authorize;
+    
+    @ApiModelProperty("专利名称")
+    private String zlmc;
+    
+    @ApiModelProperty("专利号")
+    private String zlh;
 }

@@ -20,31 +20,42 @@ import javax.servlet.http.HttpServletRequest;
  * @description
  */
 @Service
-public class PatentServiceImpl implements PatentService {
-
+public class PatentServiceImpl implements PatentService
+{
+    
     @Autowired
     private PatentMapper patentMapper;
-
+    
     @Override
-    public Page<Patent> getPatentPageByCondition(HttpServletRequest request, SearchPatentVO searchVO) {
+    public Page<Patent> getPatentPageByCondition(HttpServletRequest request, SearchPatentVO searchVO)
+    {
         QueryWrapper<Patent> wrapper = new QueryWrapper<Patent>().isNull("origin_id").orderByDesc("ZLSQRQ");
-        User user = (User) request.getSession().getAttribute("logined_userInfo");
-
-        if (searchVO.getSearchCondition().getAuthorized() != null) {
-            if (searchVO.getSearchCondition().getAuthorized()) {
-                // 授权
-                wrapper.isNotNull("ZLSQRQ");
-            } else {
-                // 没授权
-                wrapper.isNull("ZLSQRQ");
-            }
+        User user = (User)request.getSession().getAttribute("logined_userInfo");
+        //        if (request.getParameter("searchCondition"))
+        if (searchVO.getSearchCondition().getAuthorize())
+        {
+            wrapper.isNotNull("ZLSQRQ");
         }
+        else
+        {
+            wrapper.isNull("ZLSQRQ");
+        }
+        // 专利名称不为空时模糊查询
+        wrapper.like(StringUtils.isNotBlank(searchVO.getSearchCondition().getZlmc()),
+            "zlmc",
+            searchVO.getSearchCondition().getZlmc());
+        // 专利号不为空时模糊查询
+        wrapper.like(StringUtils.isNotBlank(searchVO.getSearchCondition().getZlh()),
+            "zlh",
+            searchVO.getSearchCondition().getZlh());
         // 专利发明人工号
-        if (!StringUtils.isBlank(user.getJobNumber())) {
+        if (StringUtils.isNotBlank(user.getJobNumber()))
+        {
             wrapper.like("cygh", user.getJobNumber().trim());
         }
         // 专利发明人
-        if (!StringUtils.isBlank(user.getName())) {
+        if (StringUtils.isNotBlank(user.getName()))
+        {
             wrapper.like("cymd", user.getName().trim());
         }
         Page<Patent> page = new Page<>(searchVO.getCurrPage(), searchVO.getSize());
