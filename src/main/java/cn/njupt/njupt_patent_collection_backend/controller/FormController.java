@@ -46,8 +46,7 @@ public class FormController {
     @PostMapping("/getFormPageByCondition")
     @ApiOperation("条件查询成果征集表（分页）")
     @ApiResponses({@ApiResponse(code = 200, message = "success", response = Form.class)})
-    public ReturnType getFormPageByCondition(@Valid @RequestBody SearchFormVO searchVO, BindingResult bindingResult)
-            throws BusinessException {
+    public ReturnType getFormPageByCondition(@Valid @RequestBody SearchFormVO searchVO, BindingResult bindingResult) throws BusinessException {
         if (bindingResult.hasErrors()) {
             throw new BusinessException(EmBusinessError.PARAMETER_VALIDATION_ERROR, bindingResult.getFieldError().getDefaultMessage());
         }
@@ -65,8 +64,7 @@ public class FormController {
     @PostMapping("/getFormById")
     @ApiOperation("根据id获取成果征集表")
     @ApiResponses({@ApiResponse(code = 200, message = "success", response = Form.class)})
-    public ReturnType getFormById(@ApiParam("成果征集表id") @RequestParam(value = "id") int id)
-            throws BusinessException {
+    public ReturnType getFormById(@ApiParam("成果征集表id") @RequestParam(value = "id") int id) throws BusinessException {
         return ReturnType.create(formService.getFormById(id));
     }
 
@@ -81,11 +79,9 @@ public class FormController {
     @PostMapping("/addForm")
     @ApiOperation("新增一个成果征集表")
     @ApiResponses({@ApiResponse(code = 200, message = "success", response = Form.class)})
-    public ReturnType addForm(@Validated(AddGroup.class) @RequestBody Form form, BindingResult bindingResult)
-            throws BusinessException {
+    public ReturnType addForm(@Validated(AddGroup.class) @RequestBody Form form, BindingResult bindingResult) throws BusinessException {
         if (bindingResult.hasErrors()) {
-            throw new BusinessException(EmBusinessError.PARAMETER_VALIDATION_ERROR,
-                    bindingResult.getFieldError().getDefaultMessage());
+            throw new BusinessException(EmBusinessError.PARAMETER_VALIDATION_ERROR, bindingResult.getFieldError().getDefaultMessage());
         }
         formService.addForm(form);
         return ReturnType.create("新增成功");
@@ -102,11 +98,9 @@ public class FormController {
     @PostMapping("/updateForm")
     @ApiOperation("修改一个成果征集表")
     @ApiResponses({@ApiResponse(code = 200, message = "success", response = Form.class)})
-    public ReturnType updateForm(@Validated(UpdateGroup.class) @RequestBody Form form, BindingResult bindingResult)
-            throws BusinessException {
+    public ReturnType updateForm(@Validated(UpdateGroup.class) @RequestBody Form form, BindingResult bindingResult) throws BusinessException {
         if (bindingResult.hasErrors()) {
-            throw new BusinessException(EmBusinessError.PARAMETER_VALIDATION_ERROR,
-                    bindingResult.getFieldError().getDefaultMessage());
+            throw new BusinessException(EmBusinessError.PARAMETER_VALIDATION_ERROR, bindingResult.getFieldError().getDefaultMessage());
         }
         formService.updateForm(form);
         return ReturnType.create("修改成功");
@@ -121,8 +115,7 @@ public class FormController {
      */
     @PostMapping("/deleteForm")
     @ApiOperation("删除一个成果征集表")
-    public ReturnType deleteForm(@ApiParam("成果征集表id") @RequestParam(value = "id") int id)
-            throws BusinessException {
+    public ReturnType deleteForm(@ApiParam("成果征集表id") @RequestParam(value = "id") int id) throws BusinessException {
         formService.deleteForm(id);
         return ReturnType.create("删除成功");
     }
