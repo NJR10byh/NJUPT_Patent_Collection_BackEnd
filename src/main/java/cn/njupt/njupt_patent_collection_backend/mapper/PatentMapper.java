@@ -8,9 +8,11 @@ package cn.njupt.njupt_patent_collection_backend.mapper;
 
 import cn.njupt.njupt_patent_collection_backend.entity.Patent;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 
 @Repository
 public interface PatentMapper extends BaseMapper<Patent> {
+    Patent selectPatentByWid(@Param("wid") String wid);
 }

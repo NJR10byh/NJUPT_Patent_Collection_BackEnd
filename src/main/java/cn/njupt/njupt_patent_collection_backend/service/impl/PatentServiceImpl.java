@@ -3,6 +3,8 @@ package cn.njupt.njupt_patent_collection_backend.service.impl;
 import cn.njupt.njupt_patent_collection_backend.controller.VO.SearchPatentVO;
 import cn.njupt.njupt_patent_collection_backend.entity.Patent;
 import cn.njupt.njupt_patent_collection_backend.entity.User;
+import cn.njupt.njupt_patent_collection_backend.error.BusinessException;
+import cn.njupt.njupt_patent_collection_backend.error.EmBusinessError;
 import cn.njupt.njupt_patent_collection_backend.mapper.PatentMapper;
 import cn.njupt.njupt_patent_collection_backend.service.PatentService;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
@@ -20,45 +22,49 @@ import javax.servlet.http.HttpServletRequest;
  * @description
  */
 @Service
-public class PatentServiceImpl implements PatentService
-{
-    
+public class PatentServiceImpl implements PatentService {
+
     @Autowired
     private PatentMapper patentMapper;
-    
+
     @Override
-    public Page<Patent> getPatentPageByCondition(HttpServletRequest request, SearchPatentVO searchVO)
-    {
+    public Page<Patent> getPatentPageByCondition(HttpServletRequest request, SearchPatentVO searchVO) {
         QueryWrapper<Patent> wrapper = new QueryWrapper<Patent>().isNull("origin_id").orderByDesc("ZLSQRQ");
-        User user = (User)request.getSession().getAttribute("logined_userInfo");
+        User user = (User) request.getSession().getAttribute("logined_userInfo");
         //        if (request.getParameter("searchCondition"))
-        if (searchVO.getSearchCondition().getAuthorize())
-        {
+        if (searchVO.getSearchCondition().getAuthorize()) {
             wrapper.isNotNull("ZLSQRQ");
-        }
-        else
-        {
+        } else {
             wrapper.isNull("ZLSQRQ");
         }
         // 专利名称不为空时模糊查询
         wrapper.like(StringUtils.isNotBlank(searchVO.getSearchCondition().getZlmc()),
-            "zlmc",
-            searchVO.getSearchCondition().getZlmc());
+                "zlmc",
+                searchVO.getSearchCondition().getZlmc());
         // 专利号不为空时模糊查询
         wrapper.like(StringUtils.isNotBlank(searchVO.getSearchCondition().getZlh()),
-            "zlh",
-            searchVO.getSearchCondition().getZlh());
+                "zlh",
+                searchVO.getSearchCondition().getZlh());
         // 专利发明人工号
-        if (StringUtils.isNotBlank(user.getJobNumber()))
-        {
+        if (StringUtils.isNotBlank(user.getJobNumber())) {
             wrapper.like("cygh", user.getJobNumber().trim());
         }
         // 专利发明人
-        if (StringUtils.isNotBlank(user.getName()))
-        {
+        if (StringUtils.isNotBlank(user.getName())) {
             wrapper.like("cymd", user.getName().trim());
         }
         Page<Patent> page = new Page<>(searchVO.getCurrPage(), searchVO.getSize());
         return patentMapper.selectPage(page, wrapper);
+    }
+
+    @Override
+    public Patent getPatentByWid(String wid) throws BusinessException {
+
+        Patent patent = patentMapper.selectPatentByWid(wid);
+        if (patent == null) {
+            throw new BusinessException(EmBusinessError.RECORD_NOT_EXIST, "成果征集表不存在");
+        }
+
+        return patent;
     }
 }

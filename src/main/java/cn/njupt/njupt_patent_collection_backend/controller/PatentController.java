@@ -8,6 +8,7 @@ import cn.njupt.njupt_patent_collection_backend.response.ReturnType;
 import cn.njupt.njupt_patent_collection_backend.service.PatentService;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,13 +44,19 @@ public class PatentController {
     @PostMapping("/getPatentPageByCondition")
     @ApiOperation("条件查询专利信息（分页）")
     @ApiResponses({@ApiResponse(code = 200, message = "success", response = Patent.class)})
-    public ReturnType getPatentPageByCondition(HttpServletRequest request, @Valid @RequestBody SearchPatentVO searchVO, BindingResult bindingResult)
-            throws BusinessException {
+    public ReturnType getPatentPageByCondition(HttpServletRequest request, @Valid @RequestBody SearchPatentVO searchVO, BindingResult bindingResult) throws BusinessException {
         if (bindingResult.hasErrors()) {
             throw new BusinessException(EmBusinessError.PARAMETER_VALIDATION_ERROR, bindingResult.getFieldError().getDefaultMessage());
         }
 
         Page<Patent> result = patentService.getPatentPageByCondition(request, searchVO);
         return ReturnType.create(result);
+    }
+
+    @PostMapping("/getPatentByWid")
+    @ApiOperation("根据wid查询专利信息")
+    @ApiResponses({@ApiResponse(code = 200, message = "success", response = Patent.class)})
+    public ReturnType getPatentByWid(@ApiParam("专利wid") @RequestParam(value = "wid") String wid) throws BusinessException {
+        return ReturnType.create(patentService.getPatentByWid(wid));
     }
 }

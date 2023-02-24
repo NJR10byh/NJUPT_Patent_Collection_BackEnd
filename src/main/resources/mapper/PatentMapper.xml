@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.njupt.njupt_patent_collection_backend.mapper.PatentMapper">  <!--为mapper接口的全类名-->
+
+    <select id="selectPatentByWid" resultType="Patent">  <!--全类名-->
+        select * from patent where WID=#{wid}   <!-- {}中使用@Param注解内的值-->
+    </select>
+
+</mapper>
