@@ -69,8 +69,7 @@ public class FormServiceImpl implements FormService {
      * @throws BusinessException
      */
     @Override
-    public void addForm(Form form)
-            throws BusinessException {
+    public void addForm(Form form) throws BusinessException {
         try {
             formMapper.insert(form);
         } catch (DuplicateKeyException e) {
@@ -85,8 +84,7 @@ public class FormServiceImpl implements FormService {
      * @throws BusinessException
      */
     @Override
-    public void updateForm(Form form)
-            throws BusinessException {
+    public void updateForm(Form form) throws BusinessException {
         try {
             formMapper.updateById(form);
         } catch (DuplicateKeyException e) {
@@ -101,8 +99,7 @@ public class FormServiceImpl implements FormService {
      * @throws BusinessException
      */
     @Override
-    public void deleteForm(int id)
-            throws BusinessException {
+    public void deleteForm(int id) throws BusinessException {
         Form form = formMapper.selectById(id);
         if (form == null) {
             throw new BusinessException(EmBusinessError.RECORD_NOT_EXIST, "成果征集表不存在");

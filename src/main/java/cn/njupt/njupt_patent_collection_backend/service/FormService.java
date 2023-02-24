@@ -15,16 +15,11 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 public interface FormService {
     Page<Form> getFormPageByCondition(FormSearchModel searchCondition, Integer currPage, Integer size);
 
+    Form getFormById(int id) throws BusinessException;
 
-    Form getFormById(int id)
-            throws BusinessException;
+    void addForm(Form form) throws BusinessException;
 
-    void addForm(Form form)
-            throws BusinessException;
+    void updateForm(Form form) throws BusinessException;
 
-    void updateForm(Form form)
-            throws BusinessException;
-
-    void deleteForm(int id)
-            throws BusinessException;
+    void deleteForm(int id) throws BusinessException;
 }
